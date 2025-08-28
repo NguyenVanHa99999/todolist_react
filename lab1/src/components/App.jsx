@@ -131,9 +131,7 @@ function AppShell() {
         >
           Student Assignment Tracker
         </motion.h1>
-        <motion.p className="subtitle" initial={{ y: 8, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ ...spring, delay: 0.15 }}>
-          Kéo-thả sắp xếp, rung khi lỗi và “nổ đùng” khi thêm/xoá ✨
-        </motion.p>
+        
       </header>
 
       {/* Form thêm */}
