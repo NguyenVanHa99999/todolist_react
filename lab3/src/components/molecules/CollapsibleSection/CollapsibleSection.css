@@ -1,0 +1,217 @@
+/* CollapsibleSection.css - Modern 2025 Animation Styles */
+
+.collapsible-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+/* Modern Button Styling */
+.section-header-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  outline: none;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px;
+}
+
+.section-header-button:focus-visible {
+  outline: 2px solid #6366F1;
+  outline-offset: 2px;
+}
+
+.section-header-button:hover {
+  background: rgba(99, 102, 241, 0.05);
+  transform: translateY(-1px);
+}
+
+.section-header-button:active {
+  transform: translateY(0);
+}
+
+/* Header Content */
+.section-header-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 8px 12px 8px;
+  position: relative;
+}
+
+/* Section Title */
+.section-title-text {
+  color: #6B7280;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+.section-header-button:hover .section-title-text {
+  color: #4F46E5;
+  transform: translateX(2px);
+}
+
+/* Modern Arrow Icon with Smooth Rotation */
+.arrow-icon {
+  font-size: 14px;
+  color: #9CA3AF;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform-origin: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  position: relative;
+}
+
+.arrow-icon::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+  border-radius: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.section-header-button:hover .arrow-icon::before {
+  opacity: 1;
+}
+
+.section-header-button:hover .arrow-icon {
+  color: #6366F1;
+  transform: scale(1.1);
+}
+
+/* Rotation Animation */
+.arrow-icon.rotated {
+  transform: rotate(-90deg);
+  color: #6366F1;
+}
+
+.section-header-button:hover .arrow-icon.rotated {
+  transform: rotate(-90deg) scale(1.1);
+}
+
+/* Content Container with Modern Smooth Animation */
+.section-content {
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top;
+}
+
+.section-content.expanded {
+  max-height: 1000px;
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.section-content.collapsed {
+  max-height: 0;
+  opacity: 0;
+  transform: scaleY(0.95);
+}
+
+/* Inner Content with Stagger Animation */
+.section-content-inner {
+  padding-top: 4px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.section-content.expanded .section-content-inner {
+  animation: slideInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.section-content.collapsed .section-content-inner {
+  animation: slideOutDown 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Modern Keyframe Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOutDown {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Glassmorphism Effect for Expanded State */
+.section-header-button.expanded {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Micro Interactions */
+.section-header-button.expanded .section-title-text {
+  color: #4F46E5;
+  font-weight: 800;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section-header-content {
+    padding: 12px 4px 8px 4px;
+  }
+  
+  .section-title-text {
+    font-size: 11px;
+  }
+  
+  .arrow-icon {
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .section-header-button:hover {
+    background: rgba(99, 102, 241, 0.1);
+  }
+  
+  .section-title-text {
+    color: #9CA3AF;
+  }
+  
+  .section-header-button:hover .section-title-text {
+    color: #A78BFA;
+  }
+  
+  .arrow-icon {
+    color: #6B7280;
+  }
+  
+  .section-header-button:hover .arrow-icon {
+    color: #A78BFA;
+  }
+  
+  .arrow-icon.rotated {
+    color: #A78BFA;
+  }
+}

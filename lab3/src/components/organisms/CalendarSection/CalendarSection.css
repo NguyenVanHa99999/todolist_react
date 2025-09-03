@@ -1,0 +1,109 @@
+/* CalendarSection.css */
+.calendar-section {
+  height: 100%;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #F3F4F6;
+}
+
+.rbc-calendar {
+  font-family: inherit;
+}
+
+.rbc-header {
+  border: none;
+  padding: 10px 0;
+  text-align: left;
+  font-weight: 600;
+  color: #6B7280;
+  text-transform: uppercase;
+  font-size: 12px;
+  padding-left: 8px;
+}
+
+.rbc-month-view {
+  border: 1px solid #F3F4F6;
+  border-radius: 8px;
+}
+
+.rbc-month-row {
+  border: none;
+}
+
+.rbc-day-bg {
+  border-left: 1px solid #F3F4F6;
+}
+
+.rbc-day-bg:first-child {
+  border-left: none;
+}
+
+.rbc-date-cell {
+  text-align: left;
+  padding: 8px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.rbc-off-range-bg {
+  background-color: #F9FAFB;
+}
+
+.rbc-off-range .rbc-date-cell {
+  color: #D1D5DB;
+}
+
+.rbc-today {
+  background-color: #F3F4F6;
+}
+
+.rbc-event {
+  padding: 0 !important;
+  background-color: transparent !important;
+  border: none !important;
+  cursor: default;
+}
+
+.custom-event {
+  color: #111827;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+.event-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  align-self: flex-start;
+}
+
+.event-time {
+  font-size: 11px;
+  color: #6B7280;
+  margin-bottom: 4px;
+}
+
+.event-title {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  flex-grow: 1;
+  white-space: normal;
+}
+
+.event-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  align-self: flex-start;
+}
+
+
+
+
