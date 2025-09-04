@@ -9,6 +9,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './CalendarSection.css';
 import avatarImage1 from '../../../assets/images/avatar-image-1.png';
 
+
 const locales = {
   'en-US': require('date-fns/locale/en-US'),
 };
@@ -21,15 +22,21 @@ const localizer = dateFnsLocalizer({
   locales,
 });
 
-const CustomEvent = ({ event }) => (
-  <div className="custom-event">
-    {event.resource.tag && <div className="event-tag" style={{backgroundColor: event.resource.color, color: 'white'}}>{event.resource.tag}</div>}
-    <div className="event-title">{event.title}</div>
-    <img src={event.resource.avatar} alt="avatar" className="event-avatar" />
-  </div>
-);
+const CustomEvent = ({ event, handleOpenEditModal }) => {
+  const handleEdit = () => {
+    handleOpenEditModal(event.resource);
+  };
 
-const CalendarSection = ({ tasks = [] }) => {
+  return (
+    <div className="custom-event" onClick={handleEdit}>
+      {event.resource.tag && <div className="event-tag" style={{backgroundColor: event.resource.color, color: 'white'}}>{event.resource.tag}</div>}
+      <div className="event-title">{event.title}</div>
+      <img src={event.resource.avatar} alt="avatar" className="event-avatar" />
+    </div>
+  );
+};
+
+const CalendarSection = ({ tasks = [], handleOpenEditModal, handleDeleteTask, handleToggleComplete }) => {
   const events = tasks.map(task => {
     const [day, month, year] = task.date.split('/').map(Number);
     const taskDate = new Date(year, month - 1, day);
@@ -40,6 +47,7 @@ const CalendarSection = ({ tasks = [] }) => {
       end: taskDate,
       allDay: true,
       resource: {
+        ...task,
         avatar: avatarImage1, // Using a default avatar for now
         color: task.priorityColor,
       },
@@ -58,7 +66,7 @@ const CalendarSection = ({ tasks = [] }) => {
         defaultView="month"
         toolbar={false}
         components={{
-          event: CustomEvent,
+                    event: (props) => <CustomEvent {...props} handleOpenEditModal={handleOpenEditModal} handleDeleteTask={handleDeleteTask} handleToggleComplete={handleToggleComplete} />,
         }}
         eventPropGetter={(event) => ({
           style: {

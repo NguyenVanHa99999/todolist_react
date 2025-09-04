@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -34,32 +34,42 @@ const CustomDateInput = forwardRef(({ value, onClick }, ref) => (
   />
 ));
 CustomDateInput.displayName = 'CustomDateInput';
-CustomDateInput.displayName = 'CustomDateInput';
 
-const AddTaskModal = ({ open, handleClose, handleAddTask }) => {
+const EditTaskModal = ({ open, handleClose, handleEditTask, task, handleDeleteTask }) => {
   const [title, setTitle] = useState('');
   const [priority, setPriority] = useState('medium');
   const [date, setDate] = useState(new Date());
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    if (task) {
+      setTitle(task.title);
+      setPriority(task.priority);
+      const taskDate = new Date(task.date.split('/').reverse().join('-'));
+      setDate(taskDate);
+    }
+  }, [task]);
+
+    const handleSubmit = () => {
     if (title.trim()) {
-      handleAddTask({ title, priority, date });
-      setTitle('');
-      setPriority('medium');
-      setDate(new Date());
+      handleEditTask({ ...task, title, priority, date });
       handleClose();
     }
+  };
+
+  const handleDelete = () => {
+    handleDeleteTask(task.id);
+    handleClose();
   };
 
   return (
     <Modal
       open={open}
       onClose={handleClose}
-      aria-labelledby="add-task-modal-title"
+      aria-labelledby="edit-task-modal-title"
     >
       <Box sx={style}>
-        <Typography id="add-task-modal-title" variant="h6" component="h2">
-          Add New Task
+        <Typography id="edit-task-modal-title" variant="h6" component="h2">
+          Edit Task
         </Typography>
         <Box component="form" sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 2 }}>
           <TextField
@@ -93,13 +103,14 @@ const AddTaskModal = ({ open, handleClose, handleAddTask }) => {
           </FormControl>
         </Box>
         <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end' }}>
+                    <Button onClick={handleDelete} sx={{ mr: 'auto', color: 'red' }}>Delete</Button>
           <Button onClick={handleClose} sx={{ mr: 1 }}>Cancel</Button>
-          <Button onClick={handleSubmit} variant="contained">Add</Button>
+          <Button onClick={handleSubmit} variant="contained">Save</Button>
         </Box>
       </Box>
     </Modal>
   );
 };
 
-export default AddTaskModal;
+export default EditTaskModal;
 

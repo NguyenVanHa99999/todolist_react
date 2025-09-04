@@ -1,14 +1,49 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import KanbanBoard from '../../organisms/KanbanBoard';
+import './DashboardDetailPage.css';
 
-const DashboardDetailPage = () => {
-  const { id } = useParams();
+const initialColumns = [
+  { id: 'todo', title: 'To Start' },
+  { id: 'inprogress', title: 'In Progress' },
+  { id: 'done', title: 'Done' },
+];
+
+const DashboardDetailPage = ({ currentDashboard, setTasks }) => {
+
+  const handleAddTask = (columnId, title) => {
+    const newTask = {
+      id: `${currentDashboard.id}-${Date.now()}`,
+      title,
+      columnId,
+    };
+    setTasks(currentTasks => [...currentTasks, newTask]);
+  };
+
+  const handleDeleteTask = (taskId) => {
+    setTasks(currentTasks => currentTasks.filter(task => task.id !== taskId));
+  };
+
+  const handleUpdateTask = (taskId, newTitle) => {
+    setTasks(currentTasks =>
+      currentTasks.map(task =>
+        task.id === taskId ? { ...task, title: newTitle } : task
+      )
+    );
+  };
 
   return (
-    <div style={{ padding: '20px', flex: 1 }}>
-      <h1>Dashboard Details</h1>
-      <p>Details for dashboard with ID: <strong>{id}</strong></p>
-      <p>Content for this specific dashboard will be displayed here.</p>
+    <div className="dashboard-detail-page">
+      <div className="page-header-detail">
+        <h1 className="page-title-detail">{currentDashboard.emoji} {currentDashboard.name}</h1>
+      </div>
+      <KanbanBoard
+        columns={initialColumns}
+        tasks={currentDashboard.tasks}
+        setTasks={setTasks}
+        handleAddTask={handleAddTask}
+        handleDeleteTask={handleDeleteTask}
+        handleUpdateTask={handleUpdateTask}
+      />
     </div>
   );
 };

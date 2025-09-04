@@ -3,7 +3,7 @@ import TaskCard from '../../molecules/TaskCard';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
-const ListView = ({ tasks }) => {
+const ListView = ({ tasks, handleEditTask, handleToggleComplete }) => {
   return (
     <Paper sx={{
       width: '100%',
@@ -15,7 +15,7 @@ const ListView = ({ tasks }) => {
     }}>
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         {tasks.map(task => (
-          <TaskCard key={task.id} task={task} />
+          <TaskCard key={task.id} task={task} handleEditTask={handleEditTask} handleToggleComplete={handleToggleComplete} />
         ))}
       </Box>
     </Paper>

@@ -7,8 +7,31 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
-const GroupTaskCard = ({ title, description, completed, total, avatars, progressBarColor }) => {
+const GroupTaskCard = ({ handleOpenEditModal, handleDeleteGoal, ...props }) => {
+  const { id, title, description, completed, total, avatars, progressBarColor } = props;
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleEdit = () => {
+    handleOpenEditModal(props);
+    handleClose();
+  };
+
+  const handleDelete = () => {
+    handleDeleteGoal(id);
+    handleClose();
+  };
   const progress = (completed / total) * 100;
 
   return (
@@ -25,9 +48,19 @@ const GroupTaskCard = ({ title, description, completed, total, avatars, progress
         <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, color: '#111827' }}>
           {title}
         </Typography>
-        <IconButton size="small" sx={{ color: '#9CA3AF' }}>
-          <MoreHorizIcon />
-        </IconButton>
+                <div>
+          <IconButton size="small" sx={{ color: '#9CA3AF' }} onClick={handleClick}>
+            <MoreHorizIcon />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleEdit}>Edit</MenuItem>
+            <MenuItem onClick={handleDelete}>Delete</MenuItem>
+          </Menu>
+        </div>
       </Box>
 
       <Typography variant="body2" sx={{ fontSize: '14px', color: '#6B7280', mb: 2 }}>

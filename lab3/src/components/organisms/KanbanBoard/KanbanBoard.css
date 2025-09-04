@@ -1,0 +1,19 @@
+.kanban-board {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  overflow-x: auto;
+  height: 100%;
+  align-items: stretch; /* Stretch columns to fill height */
+}
+
+/* This centers the group of columns when they don't overflow */
+/* and aligns them to the left when they do overflow. */
+.kanban-board > *:first-child {
+  margin-left: auto;
+}
+
+.kanban-board > *:last-child {
+  margin-right: auto;
+}
+

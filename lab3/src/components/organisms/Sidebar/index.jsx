@@ -7,25 +7,14 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 
-const Sidebar = ({ isCollapsed, toggleSidebar }) => {
-  const [dashboards, setDashboards] = useState([
-    { id: 1, emoji: '✅', name: 'Monthly OKRs' },
-    { id: 2, emoji: '💡', name: 'Product Key Drivers' },
-    { id: 3, emoji: '✏️', name: 'Design Team ORKs' },
-  ]);
-
+const Sidebar = ({ isCollapsed, toggleSidebar, dashboards, handleCreateDashboard }) => {
   const [isIconPickerOpen, setIsIconPickerOpen] = useState(false);
 
   const handleIconSelect = (icon) => {
     setIsIconPickerOpen(false);
     const newDashboardName = prompt(`Enter name for new dashboard:`);
     if (newDashboardName) {
-      const newDashboard = {
-        id: Date.now(),
-        emoji: icon,
-        name: newDashboardName,
-      };
-      setDashboards(prevDashboards => [...prevDashboards, newDashboard]);
+      handleCreateDashboard(icon, newDashboardName);
     }
   };
 
